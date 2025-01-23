@@ -24,6 +24,7 @@ import {
   MessageSquare,
   AlertCircle,
 } from "lucide-react";
+import Link from "next/link";
 function Interview({ params }) {
   const unwrappedParams = use(params);
   const { interviewId } = unwrappedParams;
@@ -39,6 +40,9 @@ function Interview({ params }) {
     }
   }, [interviewId]);
 
+  const navigateToStart = () => {
+    router.push(`/dashboard/interview/${interviewId}/start`);
+  };
   const GetInterviewDetails = async () => {
     try {
       const result = await db
@@ -191,7 +195,6 @@ function Interview({ params }) {
               )}
             </div>
           </Card>
-
           {/* Checklist */}
           <Card className="p-6">
             <h3 className="text-lg font-semibold mb-4">
@@ -219,16 +222,25 @@ function Interview({ params }) {
               ))}
             </div>
           </Card>
-
           {/* Action Button */}
-          <Button
+          {/* <Link href={'/dashboard/interview' +interviewId+ '/start'}></Link> */}
+          {/* <Button
             className="w-full h-12 text-lg"
-            onClick={enableWebCam}
-            // disabled={webCamEnabled}
+            onClick={isReady && webCamEnabled ? navigateToStart : enableWebCam}
           >
-            {isReady && webCamEnabled ? "Ready to Start" : "Enable Web Cam and Microphone"}
-          </Button>
-
+            {isReady && webCamEnabled
+              ? "Ready to Start"
+              : "Enable Web Cam and Microphone"}
+          </Button>{" "} */}
+          {isReady && webCamEnabled ? (
+            <Link href={`/dashboard/interview/${interviewId}/start`} passHref>
+              <Button className="w-full h-12 text-lg">Ready to Start</Button>
+            </Link>
+          ) : (
+            <Button className="w-full h-12 text-lg" onClick={enableWebCam}>
+              Enable Web Cam and Microphone
+            </Button>
+          )}
           {!webCamEnabled && (
             <div className="flex items-center gap-2 text-sm text-gray-500 justify-center">
               <AlertCircle className="w-4 h-4" />
