@@ -39,10 +39,6 @@ function Interview({ params }) {
       GetInterviewDetails();
     }
   }, [interviewId]);
-
-  const navigateToStart = () => {
-    router.push(`/dashboard/interview/${interviewId}/start`);
-  };
   const GetInterviewDetails = async () => {
     try {
       const result = await db
