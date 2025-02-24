@@ -24,6 +24,7 @@ function RecordAnsSection({
     results,
     startSpeechToText,
     stopSpeechToText,
+    setResults
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false,
@@ -100,10 +101,13 @@ function RecordAnsSection({
   
       if (resp) {
         toast("User Answer recorded successfully");
+        setUserAnswer('')
+        setResults([])
       }
     } catch (error) {
       console.error("Error parsing response:", error);
       toast("Error processing feedback. Please try again later.");
+      setResults([]);
     }
   
     setUserAnswer("");

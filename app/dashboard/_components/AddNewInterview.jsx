@@ -12,13 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { chatSession } from "@/utils/GeminiAiModal";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, Plus } from "lucide-react";
 import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 
 function AddNewInterview() {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,9 +70,9 @@ function AddNewInterview() {
         .returning({ mockId: MockInterview.mockId });
 
       console.log("Inserted ID : ", res);
-      if(res){
-        setIsOpen(false)
-        router.push('/dashboard/interview' + res[0]?.mockId)
+      if (res) {
+        setIsOpen(false);
+        router.push("/dashboard/interview" + res[0]?.mockId);
       }
     } else {
       console.log("Error");
@@ -82,12 +83,22 @@ function AddNewInterview() {
     <div>
       <Dialog open={isOpen}>
         <DialogTrigger asChild>
-          <div
-            className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all"
+          <Card
+            className="max-w-4xl border-2 border-dashed hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer group"
             onClick={() => setIsOpen(true)}
           >
-            <h2 className="font-bold text-lg text-center">+ Add New</h2>
-          </div>
+            <CardContent className="flex flex-col items-center justify-center py-12">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Plus className="h-6 w-6 text-primary" />
+              </div>
+              <h2 className="mt-4 font-semibold text-xl text-primary">
+                Add New Interview
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Create a new mock interview session
+              </p>
+            </CardContent>
+          </Card>
         </DialogTrigger>
         <DialogContent className="max-w-xl">
           <DialogHeader>
