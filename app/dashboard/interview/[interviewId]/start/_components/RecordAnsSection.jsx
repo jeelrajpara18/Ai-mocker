@@ -101,7 +101,7 @@ function RecordAnsSection({
   
       if (resp) {
         toast("User Answer recorded successfully");
-        setUserAnswer('')
+        // setUserAnswer('')
         setResults([])
       }
     } catch (error) {

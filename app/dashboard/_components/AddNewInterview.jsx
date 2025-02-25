@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { chatSession } from "@/utils/GeminiAiModal";
 import { Loader2Icon, Plus } from "lucide-react";
-import { db } from "@/utils/db";
+import { db, normalizeInterviewData } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
@@ -54,14 +54,15 @@ function AddNewInterview() {
       .text()
       .replace("```json", "")
       .replace("```", "");
-    console.log(JSON.parse(MockJsonResponse));
-    setJsonResponse(MockJsonResponse);
+    // console.log(JSON.parse(MockJsonResponse));
+    const normalizedData = normalizeInterviewData(JSON.parse(MockJsonResponse));
+    setJsonResponse(normalizedData);
     if (MockJsonResponse) {
       const res = await db
         .insert(MockInterview)
         .values({
           mockId: uuidv4(),
-          jsonMockResp: MockJsonResponse,
+          jsonMockResp: JSON.stringify(normalizedData),
           jobPosition: jobPosition,
           jobDesc: jobDesc,
           jobExperience: jobexp,
@@ -84,10 +85,7 @@ function AddNewInterview() {
     <div>
       <Dialog open={isOpen}>
         <DialogTrigger asChild>
-          <motion.div initial={{ x: -50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}>
+          <motion.div>
             <Card
               className="max-w-4xl border-2 border-dashed hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer group"
               onClick={() => setIsOpen(true)}

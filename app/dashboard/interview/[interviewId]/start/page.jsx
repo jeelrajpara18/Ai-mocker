@@ -1,5 +1,5 @@
 "use client";
-import { db } from "@/utils/db";
+import { db, normalizeInterviewData } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import React, { use, useEffect, useState } from "react";
@@ -34,7 +34,7 @@ function StartInterview({ params }) {
         .from(MockInterview)
         .where(eq(MockInterview.mockId, interviewId));
 
-      const jsonMockResp = JSON.parse(result[0].jsonMockResp);
+      const jsonMockResp = normalizeInterviewData(JSON.parse(result[0].jsonMockResp));
       console.log(jsonMockResp);
       setMockInterviewQuestion(jsonMockResp);
       setInterviewData(result[0]);
