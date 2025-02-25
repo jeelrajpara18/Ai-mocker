@@ -73,7 +73,7 @@ function AddNewInterview() {
       console.log("Inserted ID : ", res);
       if (res) {
         setIsOpen(false);
-        router.push("/dashboard/interview" + res[0]?.mockId);
+        router.push("/dashboard/interview/" + res[0]?.mockId);
       }
     } else {
       console.log("Error");
