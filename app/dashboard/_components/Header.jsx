@@ -16,6 +16,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { UserButton, useUser } from "@clerk/nextjs";
+import {
+  Bot,
+  Crown,
+  HelpCircle,
+  LayoutDashboard,
+  MessagesSquare,
+} from "lucide-react";
 
 export function SidebarDemo({ children }) {
   const users = useUser();
@@ -24,30 +31,22 @@ export function SidebarDemo({ children }) {
     {
       label: "Dashboard",
       href: "/dashboard",
-      icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      icon: LayoutDashboard,
     },
-    {
-      label: "Questions",
-      href: "/dashboard/questions",
-      icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
+    // {
+    //   label: "Questions",
+    //   href: "/dashboard/questions",
+    //   icon: MessagesSquare,
+    // },
     {
       label: "Upgrade",
       href: "/dashboard/upgrade",
-      icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      icon: Crown,
     },
     {
       label: "How it works?",
-      href: "/dashboard/how",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      href: "/dashboard/how-it-works",
+      icon: HelpCircle,
     },
   ];
   const [open, setOpen] = useState(false);
@@ -66,7 +65,14 @@ export function SidebarDemo({ children }) {
             </>
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <Link
+                  key={idx}
+                  href={link.href}
+                  className="flex items-center gap-3 p-2 text-gray-700 hover:bg-gray-200 rounded-md transition"
+                >
+                  <link.icon className="h-5 w-5" /> {/* Navigation icon */}
+                  <span>{link.label}</span> {/* Navigation text */}
+                </Link>
               ))}
             </div>
           </div>
@@ -94,7 +100,11 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        <Image src={"/logo.svg"} width={160} height={100} alt="logo" />
+        {/* <Image src={"/logo.svg"} width={160} height={100} alt="logo" /> */}
+        <div className="flex">
+          <Bot className="h-6 w-6" />
+          <span className="ml-2 text-lg font-bold">AI Interview Mocker</span>
+        </div>
       </motion.span>
     </Link>
   );

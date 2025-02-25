@@ -20,6 +20,7 @@ import moment from "moment";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 function AddNewInterview() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,22 +84,27 @@ function AddNewInterview() {
     <div>
       <Dialog open={isOpen}>
         <DialogTrigger asChild>
-          <Card
-            className="max-w-4xl border-2 border-dashed hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer group"
-            onClick={() => setIsOpen(true)}
-          >
-            <CardContent className="flex flex-col items-center justify-center py-12">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Plus className="h-6 w-6 text-primary" />
-              </div>
-              <h2 className="mt-4 font-semibold text-xl text-primary">
-                Add New Interview
-              </h2>
-              <p className="text-sm text-muted-foreground mt-1">
-                Create a new mock interview session
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}>
+            <Card
+              className="max-w-4xl border-2 border-dashed hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer group"
+              onClick={() => setIsOpen(true)}
+            >
+              <CardContent className="flex flex-col items-center justify-center py-12">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Plus className="h-6 w-6 text-primary" />
+                </div>
+                <h2 className="mt-4 font-semibold text-xl text-primary">
+                  Add New Interview
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Create a new mock interview session
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         </DialogTrigger>
         <DialogContent className="max-w-xl">
           <DialogHeader>
