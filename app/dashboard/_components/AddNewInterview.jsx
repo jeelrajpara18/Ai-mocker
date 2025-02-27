@@ -136,7 +136,7 @@ function AddNewInterview() {
                   <label>No. of years of experience</label>
                   <Input
                     type="number"
-                    placeholder="5"
+                    placeholder="Ex. 5"
                     required
                     onChange={(event) => setJobexp(event.target.value)}
                   />
