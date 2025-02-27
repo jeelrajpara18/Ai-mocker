@@ -48,7 +48,7 @@ function Feedback({ params }) {
         <h2 className="font-bold text-xl text-gray-500">No Interview Feedback Record Found</h2>
       ) : (
         <>
-          <Card className="p-6">
+          {/* <Card className="p-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">
@@ -60,7 +60,7 @@ function Feedback({ params }) {
               </div>
               <Progress value={70} className="h-3" />
             </div>
-          </Card>
+          </Card> */}
 
           <div className="space-y-4">
             <h3 className="text-lg font-medium text-gray-700">
